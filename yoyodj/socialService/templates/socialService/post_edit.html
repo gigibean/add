@@ -1,0 +1,23 @@
+{% extends "socialService/base.html" %}
+
+{% block content %}
+<h1>New post</h1>
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        {{ form2.as_p }}
+        {{ form.as_p }}
+
+        <div class="editImage__select">
+            <div class="image m-sound-upload-edit image__lightOutline alwaysShowEditButton customImage m-loaded" style="height: 260px; width: 260px;">
+                <span style="" class="sc-artwork sc-artwork-placeholder-0  image__full" aria-label="Lost Stars by JK" aria-role="img"></span>
+                <div class="image__button">
+                    <div class="imageChooser">
+                     <!--   <button type="button" class="imageChooser__chooseButton sc-button sc-button-translucent sc-button-camera sc-button-medium">Update image</button> -->
+                        <input class="imageChooser__fileInput sc-visuallyhidden" type="file" accept="image/jpeg,image/pjpeg,image/gif,image/png">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="save btn btn-default"> 저장 </button>
+    </form>
+{% endblock %}

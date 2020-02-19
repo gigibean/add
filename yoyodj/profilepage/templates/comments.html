@@ -1,0 +1,14 @@
+{% extends "profilebase.html" %}
+{% block content %}
+<div class="track-box-contain">
+    {% for i in range %}
+    <div class="profile-user-comment-box">
+        <div class="comment-1-line-text">
+            <p>on <a href="#"><span class="artist-link user-profile-comment-to-track">user track</span></a> <span class="comment-day-box">2 month ago</span></p>
+        </div>
+        <p>"@<span><a href="#">other user</a></span><span>thank you :)</span>"</span></p>
+    </div>
+    <hr>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,139 @@
+{% extends "socialService/base.html" %}
+{% block content %}
+
+                <div class="post">
+
+                    <!-- 업로드 날짜 -->
+                    <div class="date">
+                         {{ post.post.created_dt }}
+                    </div>
+
+                    <!-- 곡 이름 -->
+                     <h1><a href="">{{ post.track.title }}</a></h1>
+                  <!--  <a class="btn btn-default" href="{#% url 'post_new' pk=post.post.pk %#}"><span class="glyphicon glyphicon-pencil"></span></a> -->
+
+                    <p>
+
+                        <!-- 좋아요 버튼 -->
+                        <a href="#">
+                            <span class="like-btn btn-like-post glyphicon glyphicon-heart"></span>
+                        </a>
+
+                        <!--<script src="static/js/trackpost.js"></script>-->
+                        <script>
+                            $(function () {
+                                $('.like-btn').on('click', function(){
+                                    likePost(this)
+                                });
+
+                                function likePost(heart) {
+                                    if (post.user.is_authenticated) {
+                                        $(heart).toggleClass('btn-like-post')
+                                        id = $('.like-btn').index(heart)+1
+                                        var url = ''
+                                    } else {
+                                    }
+                                }
+
+                            })
+                        </script>
+
+                        <button type="button" class="sc-button sc-button-small sc-button-responsive" aria-describedby="tooltip-3823" tabindex="0" title="Like" aria-label="Like">
+                             {{ post.post.likes_count }}
+                        </button>
+
+                        <!-- 좋아요 수 -->
+                        <a href="#">
+
+                        </a>
+
+                        <!-- 공유 버튼 -->
+                        <button type="button" lass="btn btn-info btn-lg" data-toggle="modal" data-target="#shareLink">공유</button>
+
+                        <!-- 수정 버튼 -->
+                        <a class="btn btn-default" href="{% url 'post_edit' pk=post.user.pk pk2=post.post.pk  %}">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+
+                        <a class="btn btn-default" href="{% url 'post_remove' pk=post.post.pk %}">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+
+                        <!-- 공유 링크 Modal -->
+                        <div id="shareLink" class="modal fade" role="dialog">
+                            <div class="modal-dialog modal-sm">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                         <h4 class="modal-title">공유</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>  </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- 재생횟수 -->
+                        <span class="glyphicon glyphicon-play"></span>
+                            {{ post.track.played_count }}
+
+                    </p>
+
+                    <!-- 포스팅 내용 -->
+                    <p>{{ post.post.contents|linebreaks }}</p>
+
+                    {% for tag in post.hashtags %}
+                               <button type="button" class="btn"> {{ tag }}</button>
+                    {% endfor %}
+                    <br> <br>
+
+                    <!-- 댓글 작성 -->
+                    <form method="POST" class="post-form">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                    </form>
+
+                    <a href="{% url 'add_comment_to_post'  post_id=post.post.pk %}">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </a>
+
+                    <!-- 댓글 개수 -->
+                    <span class="glyphicon glyphicon-comment"></span>
+                        {{ post.post.comments_count }}
+
+
+
+                    <!-- 댓글 리스트 -->
+                    {% for comment in post.comments %}
+                        <div class="comment">
+                            <div class="date">{{ comment.created_dt |timesince}} ago</div>
+                            <div class="media">
+                                <div class="media-left">
+                                    <img src="img_avatar1.png" class="media-object" style="width:60px">
+                                </div>
+                                <div class="media-body">
+                                    <strong class="media-heading">
+                                        <a href="">
+                                        {{ comment.users_idx.nickname }}</a>
+                                    </strong>
+
+                                    <a class="btn btn-default" href="{% url 'comment_remove' post_id=post.post.pk comment_id=comment.pk %}">
+                                             <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+
+                                    <p>{{ comment.contents|linebreaks }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p> 댓글 없음 </p>
+                    {% endfor %}
+                </div>
+{% endblock %}

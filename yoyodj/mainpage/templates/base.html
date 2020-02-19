@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="{% static '/css/main.css' %}" rel="stylesheet"/>
+    <link href="{% static '/css/home.css' %}" rel="stylesheet"/>
+
+    <link rel="stylesheet" media="mediatype screen and (max-width: 940px)" href="{% static '/css/main.css' %}">
+    <link rel="stylesheet" media="mediatype screen and (max-width: 940px)" href="{% static '/css/profile.css' %}">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>yoyo</title>
+    <link rel="icon" type="image/png" href="../static/imgs/assets/logo-white.png">
+</head>
+<body>
+<header>
+    <!--    nav bar(sign in)    -->
+    <nav>
+        <div class="nav justify-content-center">
+            <li id="nav-btn-1" class="nav-item">
+                <a href="{% url 'home' %}">
+                    <img src="../static/imgs/assets/logo-small.svg">
+                </a>
+            </li>
+            <li id="nav-btn-2" class="nav-item"><a class="nav-link">chart</a></li>
+            <li class="nav-item" id="nav-btn-3">
+                <form class="search-bar nav-link">
+                    <input type="text" placeholder="search artists or tracks" name="search-bar-input"
+                           id="search-bar-input">
+                    <input type="submit" value=" " name="search-bar-submit" id="search-bar-submit">
+                </form>
+            </li>
+
+            <li class="nav-item" id="nav-btn-4"><a class="nav-link">user</a></li>
+            <li class="nav-item" id="nav-btn-5"><a class="nav-link">upload</a></li>
+
+            <li class="nav-item" id="nav-btn-6"><a class="nav-link">message</a></li>
+            <div class="dropdown">
+                <li class="nav-item" id="nav-btn-7">
+                    <button onclick="dropdown()" class="nav-link" id="main-dropdown-btn"></button>
+                </li>
+                <div class="dropdown-content" id="myDropdown">
+                    <a class="main-dropdown-item" href="#">about</a>
+                    <a class="main-dropdown-item" href="#">setting</a>
+                    <a class="main-dropdown-item" href="#">sign out</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!--    TO DO : navbar (without sign in)    -->
+
+</header>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script>
+    function dropdown() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    // Close the dropdown menu if the user clicks outside of it
+    window.onclick = function (event) {
+        if (!event.target.matches('#main-dropdown-btn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>
+
+{% block content %}
+{% endblock %}
+</body>
+</html>

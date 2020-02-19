@@ -1,0 +1,15 @@
+{% extends "profilebase.html" %}
+{% block content %}
+<div class="track-box-contain">
+    {% for i in range %}
+    <a href="#">
+    <div class="profile-user-pic-box">
+        <img src="/static/imgs/assets/profile-pic.png" style="position: relative; left: 5%; margin-top: 1rem;
+            border-radius: 50%; width: 150px; height: 150px;"
+                 class="user-profile-img" id="profile-img">
+        <p class="artist-link user-profile-link">user</p>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

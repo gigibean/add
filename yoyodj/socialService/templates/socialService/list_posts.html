@@ -1,0 +1,76 @@
+{% extends "socialService/base.html" %}
+{% block content %}
+    {% for post in track_posts %}
+                <div class="post">
+
+                    <!-- 업로드 날짜 -->
+                    <div class="date">
+                         {{ post.post.created_dt|timesince }} ago
+                    </div>
+
+
+                    <!-- 곡 이름 -->
+                     <h1><a href="{% url 'post_detail' pk=post.post.pk %}">{{ post.track.title }}</a></h1>
+                    <p>
+                        <!-- 좋아요 수 -->
+                        <a href="#">
+                            <span class="glyphicon glyphicon-heart"></span>
+                        </a>
+                        {{ post.post.likes_count }}
+
+                        <!--{#% if user.is_authenticated %#}-->
+                            <!-- 수정 버튼 -->
+                            <a class="btn btn-default" href="{% url 'post_edit' pk=post.user.pk pk2=post.post.pk  %}">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        <!--{#% else %#}
+
+                        {#% endif %#}-->
+                        <!-- 공유 버튼 -->
+                        <button type="button" lass="btn btn-info btn-lg" data-toggle="modal" data-target="#shareLink">공유</button>
+
+                        <!-- 공유 링크 Modal -->
+                        <div id="shareLink" class="modal fade" role="dialog">
+                            <div class="modal-dialog modal-sm">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                         <h4 class="modal-title">공유</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>  {% url 'post_detail' pk=post.post.pk %}  </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- 재생횟수 -->
+                        <span class="glyphicon glyphicon-play"></span>
+                            {{ post.track.played_count }}
+
+                        <!-- 댓글 개수-->
+                        <a href="{% url 'post_detail' pk=post.post.pk %}">
+                            <span class="glyphicon glyphicon-comment"></span>
+                        </a>
+                            {{ post.post.comments_count }}
+
+                        <!-- 태그 -->
+                        {% for tag in post.hashtags %}
+                               <button type="button" class="btn"> {{ tag }}</button>
+                        {% endfor %}
+                    </p>
+                </div>
+    {% empty %}
+        {% if request.GET.q %}
+            <p> 업로드된 곡을 찾지 못했습니다 </p>
+        {% else %}
+            <p> 아직 업로드된 곡이 없습니다 </p>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
