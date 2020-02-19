@@ -49,7 +49,7 @@ class Friends(models.Model):
         db_table = 'friends'
 
     def get_following(self, profile_user):
-        qs = Friends.objects.filter(sender_idx=profile_user).values('receiver_idx')
+        qs = Friends.objects.filter(sender_idx__in=profile_user).value_list('receiver_idx')
         return qs
     # users = []
     # qs = Friends.objects.filter(sender_idx=profile_user).values('receiver_idx')
